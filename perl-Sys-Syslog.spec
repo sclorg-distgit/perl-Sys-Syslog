@@ -2,7 +2,7 @@
 
 Name:           %{?scl_prefix}perl-Sys-Syslog
 Version:        0.34
-Release:        5%{?dist}
+Release:        4%{?dist}
 Summary:        Perl interface to the UNIX syslog(3) calls
 # README:               GPL+ or Artistic
 # ppport.h:             GPL+ or Artistic
@@ -13,8 +13,6 @@ License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Sys-Syslog/
 Source0:        http://www.cpan.org/authors/id/S/SA/SAPER/Sys-Syslog-%{version}.tar.gz
-# Avoid loading optional modules from default . (CVE-2016-1238)
-Patch0:         Sys-Syslog-0.34-CVE-2016-1238-avoid-loading-optional-modules-from.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -67,8 +65,6 @@ a string priority and a list of printf() arguments just like at syslog(3).
 
 %prep
 %setup -q -n Sys-Syslog-%{version}
-%patch0 -p1
-
 chmod -x eg/*
 # Inhibit bundled syslog.h
 rm -rf fallback
@@ -99,9 +95,6 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
-* Wed Aug 03 2016 Jitka Plesnikova <jplesnik@redhat.com> - 0.34-5
-- Avoid loading optional modules from default . (CVE-2016-1238)
-
 * Mon Jul 11 2016 Petr Pisar <ppisar@redhat.com> - 0.34-4
 - SCL
 

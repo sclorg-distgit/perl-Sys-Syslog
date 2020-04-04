@@ -1,14 +1,14 @@
 %{?scl:%scl_package perl-Sys-Syslog}
 
 # Run optional tests
-%if ! (0%{?rhel}) || ! (0%{?scl:1})
+%if ! (0%{?rhel}) && ! (0%{?scl:1})
 %bcond_without perl_Sys_Syslog_enables_optional_test
 %else
 %bcond_with perl_Sys_Syslog_enables_optional_test
 %endif
 Name:           %{?scl_prefix}perl-Sys-Syslog
 Version:        0.36
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl interface to the UNIX syslog(3) calls
 # README:               GPL+ or Artistic
 # ppport.h:             GPL+ or Artistic
@@ -104,6 +104,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jan 07 2020 Jitka Plesnikova <jplesnik@redhat.com> - 0.36-3
+- Re-rebuild of bootstrapped packages
+
 * Tue Nov 26 2019 Jitka Plesnikova <jplesnik@redhat.com> - 0.36-2
 - SCL
 

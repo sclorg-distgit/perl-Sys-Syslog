@@ -8,7 +8,7 @@
 %endif
 Name:           %{?scl_prefix}perl-Sys-Syslog
 Version:        0.36
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Perl interface to the UNIX syslog(3) calls
 # README:               GPL+ or Artistic
 # ppport.h:             GPL+ or Artistic
@@ -75,6 +75,7 @@ a string priority and a list of printf() arguments just like at syslog(3).
 %setup -q -n Sys-Syslog-%{version}
 
 chmod -x eg/*
+%{?scl:scl enable %{scl} '}perl -MConfig -i -pe %{?scl:'"}'%{?scl:"'}s{^#!/usr/bin/perl}{$Config{startperl}}%{?scl:'"}'%{?scl:"'} eg/*%{?scl:'}
 # Inhibit bundled syslog.h
 rm -rf fallback
 sed -i -e '/^fallback\//d' MANIFEST
@@ -104,6 +105,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Tue Mar 17 2020 Petr Pisar <ppisar@redhat.com> - 0.36-4
+- Normalize shebangs (bug #1813312)
+
 * Tue Jan 07 2020 Jitka Plesnikova <jplesnik@redhat.com> - 0.36-3
 - Re-rebuild of bootstrapped packages
 
